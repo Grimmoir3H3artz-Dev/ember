@@ -1,0 +1,40 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake Configure (Linux Debug)",
+      "type": "shell",
+      "command": "cmake --preset linux-gcc-debug",
+      "windows": {
+        "command": "cmake --preset windows-msvc-debug"
+      },
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "CMake Build",
+      "type": "shell",
+      "command": "cmake --build --preset linux-gcc-debug",
+      "windows": {
+        "command": "cmake --build --preset windows-msvc-debug"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    },
+    {
+      "label": "Run Ember",
+      "type": "shell",
+      "command": "${workspaceFolder}/build/linux-gcc-debug/ember",
+      "windows": {
+        "command": "${workspaceFolder}/build/windows-msvc-debug/ember.exe"
+      },
+      "dependsOn": "CMake Build",
+      "problemMatcher": []
+    }
+  ]
+}

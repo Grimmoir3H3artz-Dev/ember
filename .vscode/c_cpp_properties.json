@@ -1,0 +1,30 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/third_party/glad/include",
+        "${workspaceFolder}/build/linux-gcc-debug/_deps/glfw-src/include",
+        "${workspaceFolder}/build/linux-gcc-debug/_deps/glm-src"
+      ],
+      "defines": ["GLFW_INCLUDE_NONE"],
+      "cStandard": "c17",
+      "cppStandard": "c++20",
+      "intelliSenseMode": "linux-gcc-x64",
+      "compileCommands": "${workspaceFolder}/build/linux-gcc-debug/compile_commands.json"
+    },
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/third_party/glad/include"
+      ],
+      "defines": ["GLFW_INCLUDE_NONE", "EMBER_PLATFORM_WINDOWS"],
+      "cStandard": "c17",
+      "cppStandard": "c++20",
+      "intelliSenseMode": "windows-msvc-x64"
+    }
+  ],
+  "version": 4
+}
