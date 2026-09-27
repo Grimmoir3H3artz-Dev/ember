@@ -32,10 +32,15 @@ void Renderer::beginFrame()
     m_camera.setPerspective(60.0f, m_window.aspect(), 0.1f, 100.0f);
     m_shader.bind();
     m_shader.setMat4("uViewProj", m_camera.viewProjection());
+    m_shader.setVec3("uViewPos", m_camera.position());
+    m_shader.setVec3("uLightDir", glm::normalize(glm::vec3(-0.45f, -1.0f, -0.35f)));
+    m_shader.setVec3("uLightColor", glm::vec3(1.0f, 0.96f, 0.88f));
+    m_shader.setInt("uAlbedo", 0);
 }
 
-void Renderer::draw(const Mesh& mesh, const glm::mat4& model)
+void Renderer::draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model)
 {
+    texture.bind(0);
     m_shader.setMat4("uModel", model);
     mesh.draw();
 }

@@ -27,7 +27,44 @@ FetchContent_Declare(
     GIT_TAG        1.0.1
     GIT_SHALLOW    TRUE
 )
+FetchContent_Declare(
+    imgui
+    GIT_REPOSITORY https://github.com/ocornut/imgui.git
+    GIT_TAG        v1.91.8
+    GIT_SHALLOW    TRUE
+)
+FetchContent_Declare(
+    tinygltf
+    GIT_REPOSITORY https://github.com/syoyo/tinygltf.git
+    GIT_TAG        v2.9.3
+    GIT_SHALLOW    TRUE
+)
 FetchContent_MakeAvailable(glfw glm)
+
+FetchContent_GetProperties(tinygltf)
+if(NOT tinygltf_POPULATED)
+    FetchContent_Populate(tinygltf)
+endif()
+
+FetchContent_GetProperties(imgui)
+if(NOT imgui_POPULATED)
+    FetchContent_Populate(imgui)
+endif()
+
+add_library(imgui STATIC
+    ${imgui_SOURCE_DIR}/imgui.cpp
+    ${imgui_SOURCE_DIR}/imgui_draw.cpp
+    ${imgui_SOURCE_DIR}/imgui_tables.cpp
+    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
+)
+target_include_directories(imgui PUBLIC
+    ${imgui_SOURCE_DIR}
+    ${imgui_SOURCE_DIR}/backends
+)
+target_link_libraries(imgui PUBLIC glfw)
+target_compile_definitions(imgui PUBLIC GLFW_INCLUDE_NONE)
 
 add_library(glad STATIC
     third_party/glad/src/glad.c
@@ -44,10 +81,14 @@ add_executable(ember
     src/Engine/Mesh.cpp
     src/Engine/Camera.cpp
     src/Engine/File.cpp
+    src/Engine/Texture.cpp
+    src/Engine/Scene.cpp
+    src/Engine/Ui.cpp
+    src/Engine/GltfMesh.cpp
 )
 
-target_include_directories(ember PRIVATE src)
-target_link_libraries(ember PRIVATE glfw glad glm::glm)
+target_include_directories(ember PRIVATE src third_party/stb ${tinygltf_SOURCE_DIR})
+target_link_libraries(ember PRIVATE glfw glad glm::glm imgui)
 
 if(WIN32)
     target_compile_definitions(ember PRIVATE EMBER_PLATFORM_WINDOWS)

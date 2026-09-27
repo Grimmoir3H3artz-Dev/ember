@@ -19,6 +19,8 @@ public:
 
     void bind() const;
     void setMat4(const char* name, const glm::mat4& value) const;
+    void setVec3(const char* name, const glm::vec3& value) const;
+    void setInt(const char* name, int value) const;
     unsigned int id() const { return m_id; }
 
 private:

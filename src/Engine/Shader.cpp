@@ -77,6 +77,22 @@ void Shader::setMat4(const char* name, const glm::mat4& value) const
     }
 }
 
+void Shader::setVec3(const char* name, const glm::vec3& value) const
+{
+    const GLint loc = glGetUniformLocation(m_id, name);
+    if (loc >= 0) {
+        glUniform3fv(loc, 1, &value[0]);
+    }
+}
+
+void Shader::setInt(const char* name, int value) const
+{
+    const GLint loc = glGetUniformLocation(m_id, name);
+    if (loc >= 0) {
+        glUniform1i(loc, value);
+    }
+}
+
 unsigned int Shader::compile(unsigned int type, const std::string& source, const std::string& label)
 {
     const unsigned int id = glCreateShader(type);

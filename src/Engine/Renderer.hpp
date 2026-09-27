@@ -3,6 +3,7 @@
 #include "Engine/Camera.hpp"
 #include "Engine/Mesh.hpp"
 #include "Engine/Shader.hpp"
+#include "Engine/Texture.hpp"
 
 #include <glm/glm.hpp>
 
@@ -16,7 +17,7 @@ public:
     ~Renderer() = default;
 
     void beginFrame();
-    void draw(const Mesh& mesh, const glm::mat4& model);
+    void draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model);
     void endFrame();
 
     Camera& camera() { return m_camera; }
