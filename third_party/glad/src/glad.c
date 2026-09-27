@@ -21,6 +21,8 @@ PFNGLUSEPROGRAMPROC glad_glUseProgram;
 PFNGLDELETEPROGRAMPROC glad_glDeleteProgram;
 PFNGLGETUNIFORMLOCATIONPROC glad_glGetUniformLocation;
 PFNGLUNIFORMMATRIX4FVPROC glad_glUniformMatrix4fv;
+PFNGLUNIFORM3FVPROC glad_glUniform3fv;
+PFNGLUNIFORM1IPROC glad_glUniform1i;
 PFNGLGENVERTEXARRAYSPROC glad_glGenVertexArrays;
 PFNGLBINDVERTEXARRAYPROC glad_glBindVertexArray;
 PFNGLDELETEVERTEXARRAYSPROC glad_glDeleteVertexArrays;
@@ -31,6 +33,15 @@ PFNGLDELETEBUFFERSPROC glad_glDeleteBuffers;
 PFNGLENABLEVERTEXATTRIBARRAYPROC glad_glEnableVertexAttribArray;
 PFNGLVERTEXATTRIBPOINTERPROC glad_glVertexAttribPointer;
 PFNGLDRAWARRAYSPROC glad_glDrawArrays;
+PFNGLDRAWELEMENTSPROC glad_glDrawElements;
+PFNGLGENTEXTURESPROC glad_glGenTextures;
+PFNGLBINDTEXTUREPROC glad_glBindTexture;
+PFNGLDELETETEXTURESPROC glad_glDeleteTextures;
+PFNGLTEXIMAGE2DPROC glad_glTexImage2D;
+PFNGLTEXPARAMETERIPROC glad_glTexParameteri;
+PFNGLGENERATEMIPMAPPROC glad_glGenerateMipmap;
+PFNGLACTIVETEXTUREPROC glad_glActiveTexture;
+PFNGLPIXELSTOREIPROC glad_glPixelStorei;
 
 int gladLoadGLLoader(GLADuserptrloadfunc load, void* userptr)
 {
@@ -59,6 +70,8 @@ int gladLoadGLLoader(GLADuserptrloadfunc load, void* userptr)
     glad_glDeleteProgram = (PFNGLDELETEPROGRAMPROC)load(userptr, "glDeleteProgram");
     glad_glGetUniformLocation = (PFNGLGETUNIFORMLOCATIONPROC)load(userptr, "glGetUniformLocation");
     glad_glUniformMatrix4fv = (PFNGLUNIFORMMATRIX4FVPROC)load(userptr, "glUniformMatrix4fv");
+    glad_glUniform3fv = (PFNGLUNIFORM3FVPROC)load(userptr, "glUniform3fv");
+    glad_glUniform1i = (PFNGLUNIFORM1IPROC)load(userptr, "glUniform1i");
     glad_glGenVertexArrays = (PFNGLGENVERTEXARRAYSPROC)load(userptr, "glGenVertexArrays");
     glad_glBindVertexArray = (PFNGLBINDVERTEXARRAYPROC)load(userptr, "glBindVertexArray");
     glad_glDeleteVertexArrays = (PFNGLDELETEVERTEXARRAYSPROC)load(userptr, "glDeleteVertexArrays");
@@ -69,6 +82,15 @@ int gladLoadGLLoader(GLADuserptrloadfunc load, void* userptr)
     glad_glEnableVertexAttribArray = (PFNGLENABLEVERTEXATTRIBARRAYPROC)load(userptr, "glEnableVertexAttribArray");
     glad_glVertexAttribPointer = (PFNGLVERTEXATTRIBPOINTERPROC)load(userptr, "glVertexAttribPointer");
     glad_glDrawArrays = (PFNGLDRAWARRAYSPROC)load(userptr, "glDrawArrays");
+    glad_glDrawElements = (PFNGLDRAWELEMENTSPROC)load(userptr, "glDrawElements");
+    glad_glGenTextures = (PFNGLGENTEXTURESPROC)load(userptr, "glGenTextures");
+    glad_glBindTexture = (PFNGLBINDTEXTUREPROC)load(userptr, "glBindTexture");
+    glad_glDeleteTextures = (PFNGLDELETETEXTURESPROC)load(userptr, "glDeleteTextures");
+    glad_glTexImage2D = (PFNGLTEXIMAGE2DPROC)load(userptr, "glTexImage2D");
+    glad_glTexParameteri = (PFNGLTEXPARAMETERIPROC)load(userptr, "glTexParameteri");
+    glad_glGenerateMipmap = (PFNGLGENERATEMIPMAPPROC)load(userptr, "glGenerateMipmap");
+    glad_glActiveTexture = (PFNGLACTIVETEXTUREPROC)load(userptr, "glActiveTexture");
+    glad_glPixelStorei = (PFNGLPIXELSTOREIPROC)load(userptr, "glPixelStorei");
 
-    return (glad_glCreateShader && glad_glDrawArrays) ? 1 : 0;
+    return (glad_glCreateShader && glad_glDrawElements && glad_glTexImage2D) ? 1 : 0;
 }

@@ -2,7 +2,7 @@
 
 Small C++20 game engine starter aimed at modest laptops (AMD Vega 6 / similar iGPUs).
 
-**Now:** window, OpenGL 4.6 core, shader load, perspective camera, rotating colored cube.  
+**Now:** window, OpenGL 4.6 core, shader load, fly camera, colored cube.  
 **Not yet:** textures, lighting, glTF, physics, ECS, audio, editor.
 
 ## Why this stack
@@ -71,8 +71,13 @@ First configure downloads GLFW and GLM. Later configures are offline.
 
 ## Controls
 
+- **Right mouse + move** — look
+- **WASD** — move in the look plane
+- **Space / Ctrl** — up / down
+- **Shift** — sprint
+- **Scroll** — change move speed
+- **R** — reset view
 - **Esc** — quit
-- Cube auto-rotates so you can confirm depth + face colors
 
 ## Hardware notes (Vega 6 / 4 GB UMA)
 
@@ -83,12 +88,9 @@ First configure downloads GLFW and GLM. Later configures are offline.
 
 ## Suggested next commits
 
-1. Orbit camera (mouse + WASD)
-2. Index buffer + `stb_image` textured cube
-3. Directional light in the fragment shader
-4. Tiny scene list (`Transform` + `Mesh*` + `Shader*`)
-5. ImGui overlay (frame time, draw calls)
-6. glTF static mesh via tinygltf
+1. Tiny scene list (`Transform` + `Mesh*` + `Texture*`)
+2. ImGui overlay (frame time, draw calls)
+3. glTF static mesh via tinygltf
 7. Abstract `IRenderer` if you still want Vulkan
 
 Skip ECS until you have more than one kind of object and a reason to query them.
