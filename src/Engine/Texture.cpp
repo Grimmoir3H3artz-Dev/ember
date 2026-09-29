@@ -2,6 +2,7 @@
 #include "Engine/File.hpp"
 
 #include <glad/glad.h>
+#include <stdexcept>
 
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_NO_THREAD_LOCALS
@@ -101,6 +102,28 @@ void Texture::bind(unsigned int unit) const
 {
     glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(GL_TEXTURE_2D, m_id);
+}
+
+Texture Texture::loadFromMemory(const unsigned char* data, int width, int height, int channels)
+{
+    Texture tex;
+    glGenTextures(1, &tex.m_id);
+    glBindTexture(GL_TEXTURE_2D, tex.m_id);
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
+
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    return tex;
 }
 
 } // namespace Ember

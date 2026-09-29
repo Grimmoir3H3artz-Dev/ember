@@ -1,4 +1,5 @@
 #include "Engine/Mesh.hpp"
+#include "Engine/Texture.hpp"
 #include "Engine/File.hpp"
 
 #define TINYGLTF_IMPLEMENTATION

@@ -15,3 +15,9 @@ Append entries. Do not rewrite old ones.
 - Files: `src/Engine/Mesh.hpp`, `src/Engine/Mesh.cpp`, `src/Engine/GltfMesh.cpp`, `src/Engine/Application.hpp`, `src/Engine/Application.cpp`, `CMakeLists.txt`, `assets/models/cube.gltf`
 - Behavior: Left (tall) cube now comes from `assets/models/cube.gltf` via tinygltf. Geometry only; still uses the checker albedo. Drop-in `.gltf` / `.glb` later via `Mesh::loadGltf`. First mesh, first triangle primitive only. No skinning, no multiple primitives.
 - Follow-ups / risks: First configure fetches tinygltf. Byte-strided accessors not handled yet. Append this block to `CHANGELOG.md`.
+## 2026-09-28 — glTF material base color & texture loading support
+- Author: Gemini (overflow)
+- Why: Add memory texture loader and baseColorFactor uniform to support material parameters
+- Files: `src/Engine/Texture.hpp`, `src/Engine/Texture.cpp`, `src/Engine/GltfMesh.cpp`, `assets/shaders/basic.frag`
+- Behavior: `Texture::loadFromMemory` added for uploading raw image buffers (RGBA/RGB) to GPU. `basic.frag` now accepts `uBaseColorFactor` tint uniform.
+- Follow-ups / risks: Grok to verify uniform wiring in `Renderer.cpp` or `Renderable` material component binding when assigning glTF textures to scene objects.

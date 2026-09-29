@@ -5,6 +5,7 @@ in vec3 vNormal;
 in vec2 vUv;
 
 uniform sampler2D uAlbedo;
+uniform vec4 uBaseColorFactor = vec4(1.0);
 uniform vec3 uLightDir;
 uniform vec3 uLightColor;
 uniform vec3 uViewPos;
@@ -13,7 +14,7 @@ out vec4 FragColor;
 
 void main()
 {
-    vec3 albedo = texture(uAlbedo, vUv).rgb;
+    vec3 albedo = texture(uAlbedo, vUv).rgb * uBaseColorFactor.rgb;
     vec3 n = normalize(vNormal);
     vec3 l = normalize(-uLightDir);
     vec3 v = normalize(uViewPos - vWorldPos);
