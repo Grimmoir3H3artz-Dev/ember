@@ -21,3 +21,15 @@ Append entries. Do not rewrite old ones.
 - Files: `src/Engine/Texture.hpp`, `src/Engine/Texture.cpp`, `src/Engine/GltfMesh.cpp`, `assets/shaders/basic.frag`
 - Behavior: `Texture::loadFromMemory` added for uploading raw image buffers (RGBA/RGB) to GPU. `basic.frag` now accepts `uBaseColorFactor` tint uniform.
 - Follow-ups / risks: Grok to verify uniform wiring in `Renderer.cpp` or `Renderable` material component binding when assigning glTF textures to scene objects.
+## 2026-09-29 — glTF material wiring pass
+- Author: Gemini (overflow)
+- Why: Complete material wiring slice requested by Grok (set uBaseColorFactor in Renderer::draw)
+- Files: `src/Engine/Renderer.hpp`, `src/Engine/Renderer.cpp`, `src/Engine/GltfMesh.cpp`
+- Behavior: `Renderer::draw` now binds `uBaseColorFactor` per draw call. `Renderable` objects pass their material factor directly to the shader during frame rendering.
+- Follow-ups / risks: Grok to review per-object material bindings in `Scene` / `Application.cpp`.
+## 2026-09-29 — Per-object material color factor wiring
+- Author: Gemini (overflow)
+- Why: Complete material wiring pass requested by Grok (wire uBaseColorFactor through Shader, Renderer, Renderable, and Scene)
+- Files: `assets/shaders/basic.frag`, `src/Engine/Shader.hpp`, `src/Engine/Shader.cpp`, `src/Engine/Renderer.hpp`, `src/Engine/Renderer.cpp`, `src/Engine/Scene.hpp`, `src/Engine/Scene.cpp`, `src/Engine/Application.cpp`
+- Behavior: Updated `basic.frag` to use `vec3 uBaseColorFactor`. Added `Shader::setVec4` via `glUniform3fv`. Extended `Renderer::draw`, `Renderable`, and `Scene::add` to hold and pass per-object color factors. Verified per-object tinting in `Application.cpp` (Test B passed).
+- Follow-ups / risks: None. Baseline build and camera controls remain clean. Ready for Grok to review.

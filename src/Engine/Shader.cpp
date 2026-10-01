@@ -2,6 +2,7 @@
 #include "Engine/File.hpp"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 #include <stdexcept>
@@ -80,6 +81,14 @@ void Shader::setMat4(const char* name, const glm::mat4& value) const
 void Shader::setVec3(const char* name, const glm::vec3& value) const
 {
     const GLint loc = glGetUniformLocation(m_id, name);
+    if (loc >= 0) {
+        glUniform3fv(loc, 1, &value[0]);
+    }
+}
+
+void Shader::setVec4(std::string_view name, const glm::vec4& value) const
+{
+    const GLint loc = glGetUniformLocation(m_id, std::string(name).c_str());
     if (loc >= 0) {
         glUniform3fv(loc, 1, &value[0]);
     }

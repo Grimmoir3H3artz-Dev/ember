@@ -19,7 +19,7 @@ Application::Application()
     , m_ui(m_window.handle())
 {
     m_scene.add(m_cube, m_albedo, Transform{{0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}});
-    m_scene.add(m_cube, m_albedo, Transform{{2.2f, 0.0f, -0.4f}, {0.0f, 25.0f, 0.0f}, {0.7f, 0.7f, 0.7f}});
+    m_scene.add(m_cube, m_albedo, Transform{{2.2f, 0.0f, -0.4f}, {0.0f, 25.0f, 0.0f}, {0.7f, 0.7f, 0.7f}}, glm::vec4(1.0f, 0.2f, 0.2f, 1.0f));
     m_scene.add(m_gltfCube, m_albedo, Transform{{-2.0f, 0.35f, 0.6f}, {15.0f, -20.0f, 0.0f}, {0.55f, 1.4f, 0.55f}});
 }
 

@@ -38,10 +38,12 @@ void Renderer::beginFrame()
     m_shader.setInt("uAlbedo", 0);
 }
 
-void Renderer::draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model)
+void Renderer::draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model, 
+                    const glm::vec4& baseColorFactor)
 {
     texture.bind(0);
     m_shader.setMat4("uModel", model);
+    m_shader.setVec4("uBaseColorFactor", baseColorFactor);
     mesh.draw();
 }
 

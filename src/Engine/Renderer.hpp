@@ -17,7 +17,8 @@ public:
     ~Renderer() = default;
 
     void beginFrame();
-    void draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model);
+    void draw(const Mesh& mesh, const Texture& texture, const glm::mat4& model, 
+               const glm::vec4& baseColorFactor = glm::vec4(1.0f));
     void endFrame();
 
     Camera& camera() { return m_camera; }
