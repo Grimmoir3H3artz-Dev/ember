@@ -8,6 +8,7 @@
 #define TINYGLTF_NO_EXTERNAL_IMAGE
 #include <tiny_gltf.h>
 
+#include <glm/glm.hpp>
 #include <stdexcept>
 #include <string>
 
@@ -23,6 +24,14 @@ const T* accessorData(const tinygltf::Model& model, const tinygltf::Accessor& ac
 }
 
 } // namespace
+
+// Struct helper for passing loaded glTF mesh + material back to the scene
+struct GltfData {
+    Mesh mesh;
+    Texture texture;
+    glm::vec4 baseColorFactor{1.0f};
+    bool hasTexture = false;
+};
 
 Mesh Mesh::loadGltf(std::string_view relativePath)
 {
